@@ -8,7 +8,10 @@ export type Props = {
   onChange: (value: string) => void;
 };
 
-const OtpInput = ({ value, valueLength, onChange }: Props) => {
+const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
+  // const { value, valueLength, onChange } = props;
+  console.log("props", props);
+
   const valueItems = useMemo(() => {
     const valueArray = value.split("");
     const items: Array<string> = [];
