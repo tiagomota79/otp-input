@@ -9,9 +9,6 @@ export type Props = {
 };
 
 const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
-  // const { value, valueLength, onChange } = props;
-  console.log("props", props);
-
   const valueItems = useMemo(() => {
     const valueArray = value.split("");
     const items: Array<string> = [];
@@ -130,7 +127,7 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
     <div className="flex w-full justify-between gap-4">
       {valueItems.map((digit, idx) => (
         <input
-          key={idx}
+          key={self.crypto.randomUUID()}
           type="text"
           inputMode="numeric"
           autoComplete="one-time-code"
