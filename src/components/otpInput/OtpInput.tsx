@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 const onlyDigits = new RegExp(/^\d+$/);
 
@@ -10,7 +10,7 @@ export type Props = {
 
 const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
   const valueItems = useMemo(() => {
-    const valueArray = value.split("");
+    const valueArray = value.split('');
     const items: Array<string> = [];
 
     for (let i = 0; i < valueLength; i++) {
@@ -19,7 +19,7 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
       if (onlyDigits.test(char)) {
         items.push(char);
       } else {
-        items.push("");
+        items.push('');
       }
     }
 
@@ -50,18 +50,18 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
     let targetValue = target.value.trim();
     const isTargetValueDigit = onlyDigits.test(targetValue);
 
-    if (!isTargetValueDigit && targetValue !== "") {
+    if (!isTargetValueDigit && targetValue !== '') {
       return;
     }
 
     const nextInputEl = target.nextElementSibling as HTMLInputElement | null;
 
     // only delete digit if next input element has no value
-    if (!isTargetValueDigit && nextInputEl && nextInputEl.value !== "") {
+    if (!isTargetValueDigit && nextInputEl && nextInputEl.value !== '') {
       return;
     }
 
-    targetValue = isTargetValueDigit ? targetValue : " ";
+    targetValue = isTargetValueDigit ? targetValue : ' ';
 
     const targetValueLength = targetValue.length;
 
@@ -86,12 +86,12 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
     const { key } = e;
     const target = e.target as HTMLInputElement;
 
-    if (key === "ArrowRight" || key === "ArrowDown") {
+    if (key === 'ArrowRight' || key === 'ArrowDown') {
       e.preventDefault();
       return focusToNextInput(target);
     }
 
-    if (key === "ArrowLeft" || key === "ArrowUp") {
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
       e.preventDefault();
       return focusToPrevInput(target);
     }
@@ -102,7 +102,7 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
     // if the same digit was typed
     target.setSelectionRange(0, targetValue.length);
 
-    if (e.key !== "Backspace" || targetValue !== "") {
+    if (e.key !== 'Backspace' || targetValue !== '') {
       return;
     }
 
@@ -116,7 +116,7 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
     const prevInputEl =
       target.previousElementSibling as HTMLInputElement | null;
 
-    if (prevInputEl && prevInputEl.value === "") {
+    if (prevInputEl && prevInputEl.value === '') {
       return prevInputEl.focus();
     }
 
@@ -124,16 +124,16 @@ const OtpInput = ({ value, valueLength, onChange, ...props }: Props) => {
   };
 
   return (
-    <div className="flex w-full justify-between gap-4">
+    <div className='flex w-full justify-between gap-4'>
       {valueItems.map((digit, idx) => (
         <input
-          key={self.crypto.randomUUID()}
-          type="text"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          pattern="\d{1}"
+          key={idx + digit + Math.random()}
+          type='text'
+          inputMode='numeric'
+          autoComplete='one-time-code'
+          pattern='\d{1}'
           maxLength={valueLength}
-          className="w-full rounded-md border-2 py-2 px-3 text-center placeholder-shown:text-ellipsis focus:border-blue-500 focus:outline-none md:text-xl-input"
+          className='w-full rounded-md border-2 py-2 px-3 text-center placeholder-shown:text-ellipsis focus:border-blue-500 focus:outline-none md:text-xl-input'
           value={digit}
           onChange={(e) => inputOnChange(e, idx)}
           onKeyDown={inputOnKeyDown}
